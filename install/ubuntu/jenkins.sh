@@ -15,7 +15,7 @@ fi
 
 
 ## Install Jenkins
-echo "Jenkins is not istalled"
+echo "Installing Jenkins"
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
 sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
     /etc/apt/sources.list.d/jenkins.list' -y
@@ -41,3 +41,8 @@ if [ -n "$1" ]; then
 		sudo bash ../../util/cloudflare-update-dns.sh $CLOUDFLARE_ZONE $CLOUDFLARE_TOKEN $DOMAIN $CLOUDFLARE_DNS_TYPE $CLOUDFLARE_DNS_CONTENT 120 false
 	fi
 fi
+
+## Setting up jenkins use sudo without password
+echo "Setting up jenkins use sudo without password."
+sudo sh -c 'echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
+sudo service jenkins restart
