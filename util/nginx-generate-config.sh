@@ -69,7 +69,7 @@ if ! which nginx > /dev/null 2>&1; then
 fi
 
 echo ">> Generating nginx config file" &&
-sudo cat << EOF > /etc/nginx/sites-available/$DOMAIN_NAME
+sudo cat << EOF > /etc/nginx/sites-available/$DOMAIN
 server {
     listen   80;
     server_name  $SERVER_NAME;
@@ -87,11 +87,11 @@ server {
 EOF
 
 echo ">> Link file from nginx available folder to nginx enable folder"
-FILE=/etc/nginx/sites-enabled/$DOMAIN_NAME
+FILE=/etc/nginx/sites-enabled/$DOMAIN
 if [ -f "$FILE" ]; then
     echo ">> $FILE exists."
 else
-    ln -s /etc/nginx/sites-available/$DOMAIN_NAME /etc/nginx/sites-enabled
+    ln -s /etc/nginx/sites-available/$DOMAIN /etc/nginx/sites-enabled
     echo ">> Link nginx config file success."
 fi
 

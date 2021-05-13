@@ -189,17 +189,17 @@ docker 2>/dev/null 1>&2 rm $CONTAINER_NAME || true &&
 echo ">> Running container" &&
 docker run -p $RANDOM_PORT:$PORT -d --name $CONTAINER_NAME --restart always $IMAGE_NAME
 
-bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/clean.sh)"
+sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/clean.sh)"
 
 
 ## Nginx Setup
 if [ -n "$DOMAIN" ]; then
 	echo "Domain name is $DOMAIN."
-	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)" '' --domain=$DOMAIN --server-name=$DOMAIN --port=$RANDOM_PORT
+	sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)" '' --domain=$DOMAIN --server-name=$DOMAIN --port=$RANDOM_PORT
 
 	if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ]; then
 		echo "Cloudflare config is not empty."
-		bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)" '' --cloudflare-zone=$CLOUDFLARE_ZONE --cloudflare-token=$CLOUDFLARE_TOKEN --domain=$DOMAIN --cloudflare-dns-type=$CLOUDFLARE_DNS_TYPE --cloudflare-dns-content=$CLOUDFLARE_DNS_CONTENT --cloudflare-dns-ttl=120 --cloudflare-dns-proxied=false
-    bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/certbot-generate-cert.sh)" '' --domain=$DOMAIN
+		sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)" '' --cloudflare-zone=$CLOUDFLARE_ZONE --cloudflare-token=$CLOUDFLARE_TOKEN --domain=$DOMAIN --cloudflare-dns-type=$CLOUDFLARE_DNS_TYPE --cloudflare-dns-content=$CLOUDFLARE_DNS_CONTENT --cloudflare-dns-ttl=120 --cloudflare-dns-proxied=false
+    sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/certbot-generate-cert.sh)" '' --domain=$DOMAIN
 	fi
 fi
