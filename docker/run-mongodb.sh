@@ -1,15 +1,4 @@
-# DB_NAME="$1"
-# PORT="$2"
-# USERNAME="$3"
-# PASSWORD="$4"
-
-# DOMAIN="$5"
-# CLOUDFLARE_ZONE="$6"
-# CLOUDFLARE_TOKEN="$7"
-# CLOUDFLARE_DNS_TYPE="$8"
-# CLOUDFLARE_DNS_CONTENT="$9"
-package="MongoDB Container"
-
+package="Run MongoDB container"
 while test $# -gt 0; do
   case "$1" in
     -h|--help)
@@ -162,28 +151,16 @@ while test $# -gt 0; do
   esac
 done
 
-echo "DB_NAME=$DB_NAME"
-echo "PORT=$PORT"
-echo "USERNAME=$USERNAME"
-echo "PASSWORD=$PASSWORD"
-
-echo "DOMAIN=$DOMAIN"
-echo "CLOUDFLARE_ZONE=$CLOUDFLARE_ZONE"
-echo "CLOUDFLARE_TOKEN=$CLOUDFLARE_TOKEN"
-echo "CLOUDFLARE_DNS_TYPE=$CLOUDFLARE_DNS_TYPE"
-echo "CLOUDFLARE_DNS_CONTENT=$CLOUDFLARE_DNS_CONTENT"
-
-
+echo ">> deleting old container if exits"
 docker 2>/dev/null 1>&2 stop $DB_NAME || true
 docker 2>/dev/null 1>&2 rm $DB_NAME || true 
 
-echo ">> Running database container"
+echo ">> Running container"
 docker run -p $PORT:27017 -d \
 	-v /var/db/mongo/$DB_NAME:/data/db \
     -e MONGO_INITDB_ROOT_USERNAME=$USERNAME \
     -e MONGO_INITDB_ROOT_PASSWORD=$PASSWORD \
     --name $DB_NAME --restart always mongo
-
 
 ## Domain Setup
 if [ -n "$1" ]; then
