@@ -162,6 +162,8 @@ docker run -p $PORT:27017 -d \
     -e MONGO_INITDB_ROOT_PASSWORD=$PASSWORD \
     --name $DB_NAME --restart always mongo
 
+bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/clean.sh)"
+
 ## Domain Setup
 if [ -n "$DOMAIN" ]; then
 	echo "Setting up domain name"

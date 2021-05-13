@@ -111,24 +111,24 @@ sudo apt-get update -y
 sudo apt-get install jenkins -y
 
 ## Nginx Setup
-if [ -n "$1" ]; then
+if [ -n "$DOMAIN" ]; then
 	echo "Domain name is not empty."
-	sudo sh -c 'bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh)" "" \
+	sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh)' '' \
 		--domain=$DOMAIN \
 		--server-name=$DOMAIN \
-		--port=8080'
+		--port=8080"
 
 	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh)" '' --domain=$DOMAIN
-	if [ -n "$2" ] && [ -n "$3" ] && [ -n "$4" ] && [ -n "$5" ]; then
+	if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ] ; then
 		echo "Cloudflare config is not empty."
-		sudo sh -c 'bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh)" "" \
+		sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh)' '' \
 			--cloudflare-zone=$CLOUDFLARE_ZONE \
 			--cloudflare-token=$CLOUDFLARE_TOKEN \
 			--domain=$DOMAIN \
 			--cloudflare-dns-type=$CLOUDFLARE_DNS_TYPE \
 			--cloudflare-dns-content=$CLOUDFLARE_DNS_CONTENT \
 			--cloudflare-dns-ttl=120 \
-			--cloudflare-dns-proxied=false'
+			--cloudflare-dns-proxied=false"
 	fi
 fi
 
