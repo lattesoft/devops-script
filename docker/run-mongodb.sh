@@ -11,4 +11,4 @@ docker run -p $PORT:27017 -d \
 	-v /var/db/mongo/$DB_NAME:/data/db \
     -e MONGO_INITDB_ROOT_USERNAME=$USERNAME \
     -e MONGO_INITDB_ROOT_PASSWORD=$PASSWORD \
-    --name db_everest --restart always mongo
+    --name $DB_NAME --restart always mongo
