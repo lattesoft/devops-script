@@ -195,10 +195,7 @@ bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-scrip
 ## Nginx Setup
 if [ -n "$DOMAIN" ]; then
 	echo "Domain name is $DOMAIN."
-	sudo sh -c "bash -c \"$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)\" '' \
-		--domain=$DOMAIN \
-		--server-name=$DOMAIN \
-		--port=$RANDOM_PORT"
+	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)" '' --domain=$DOMAIN --server-name=$DOMAIN --port=$RANDOM_PORT
 
 	if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ]; then
 		echo "Cloudflare config is not empty."
