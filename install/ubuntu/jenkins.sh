@@ -37,3 +37,4 @@ fi
 echo "Setting up jenkins use sudo without password."
 sudo sh -c 'echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
 sudo service jenkins restart
+sudo gpasswd -a jenkins docker

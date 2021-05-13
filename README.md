@@ -107,7 +107,31 @@ wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util
 ```shell
 wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh | sudo bash -s a4b6339fdb9dvdf4e7d34327c5a01243 kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc jenkins.example.com A 1.2.3.4 120 false
 ```
+
 <br/>
+
+---
+## Run DB container
+
+```shell
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/run-mongodb.sh | sudo bash -s $DB_NAME $PORT $USERNAME $PASSWORD
+```
+
+`$DB_NAME` Container name.
+
+`$PORT` Container port.
+
+`$USERNAME` Admin username.
+
+`$PASSWORD` Admin password.
+
+### Example
+
+```shell
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/run-mongodb.sh | sudo bash -s mongo 27017 admin pass
+```
+
+<br>
 
 ## License
 
