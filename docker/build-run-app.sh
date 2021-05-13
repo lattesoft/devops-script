@@ -1,4 +1,3 @@
-#!/bin/bash
 ## Variables
 package="Install jenkins"
 while test $# -gt 0; do
