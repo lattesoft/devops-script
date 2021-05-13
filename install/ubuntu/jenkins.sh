@@ -30,7 +30,7 @@ if [ -n "$1" ]; then
     	   echo "Nginx not installed"
 	   wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/nginx.sh | sudo bash
 	fi
-	sudo bash ../../util/nginx-generate-config.sh $DOMAIN $DOMAIN 8080
+	wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh | sudo bash -s $DOMAIN $DOMAIN 8080
 	if ! which certbot > /dev/null 2>&1; then
            echo "Certbot not installed"
 	   wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/certbot.sh | sudo bash
