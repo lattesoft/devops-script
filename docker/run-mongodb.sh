@@ -174,24 +174,23 @@ echo "CLOUDFLARE_DNS_TYPE=$CLOUDFLARE_DNS_TYPE"
 echo "CLOUDFLARE_DNS_CONTENT=$CLOUDFLARE_DNS_CONTENT"
 
 
-# docker 2>/dev/null 1>&2 stop $DB_NAME || true
-# docker 2>/dev/null 1>&2 rm $DB_NAME || true 
+docker 2>/dev/null 1>&2 stop $DB_NAME || true
+docker 2>/dev/null 1>&2 rm $DB_NAME || true 
 
-# echo ">> Running database container"
-# docker run -p $PORT:27017 -d \
-# 	-v /var/db/mongo/$DB_NAME:/data/db \
-#     -e MONGO_INITDB_ROOT_USERNAME=$USERNAME \
-#     -e MONGO_INITDB_ROOT_PASSWORD=$PASSWORD \
-#     --name $DB_NAME --restart always mongo
+echo ">> Running database container"
+docker run -p $PORT:27017 -d \
+	-v /var/db/mongo/$DB_NAME:/data/db \
+    -e MONGO_INITDB_ROOT_USERNAME=$USERNAME \
+    -e MONGO_INITDB_ROOT_PASSWORD=$PASSWORD \
+    --name $DB_NAME --restart always mongo
 
 
-# ## Domain Setup
-# if [ -n "$1" ]; then
-# 	echo "Setting up domain name"
-# 	wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh | sudo bash -s $DOMAIN $DOMAIN 8080
-# 	wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh | sudo bash -s $DOMAIN
-# 	if [ -n "$2" ] && [ -n "$3" ] && [ -n "$4" ] && [ -n "$5" ]; then
-# 		echo "Cloudflare config is not empty."
-# 		wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh | sudo bash -s $CLOUDFLARE_ZONE $CLOUDFLARE_TOKEN $DOMAIN $CLOUDFLARE_DNS_TYPE $CLOUDFLARE_DNS_CONTENT 120 false
-# 	fi
-# fi
+## Domain Setup
+if [ -n "$1" ]; then
+	echo "Setting up domain name"
+	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh)" "" --domain=$DOMAIN --server-name=$DOMAIN --port=$PORT
+	if [ -n "$DOMAIN" ] && [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ]; then
+		echo "Cloudflare config is not empty."
+		bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh)" "" -cz $CLOUDFLARE_ZONE -ct $CLOUDFLARE_TOKEN -d $DOMAIN -cdt $CLOUDFLARE_DNS_TYPE -cdc $CLOUDFLARE_DNS_CONTENT -cdtl 120 -cdp false
+	fi
+fi
