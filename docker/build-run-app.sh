@@ -190,21 +190,21 @@ docker 2>/dev/null 1>&2 rm $CONTAINER_NAME || true &&
 echo ">> Running container" &&
 docker run -p $RANDOM_PORT:$PORT -d --name $CONTAINER_NAME --restart always $IMAGE_NAME
 
-bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/clean.sh)"
+bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/clean.sh)"
 
 
 ## Nginx Setup
 if [ -n "$DOMAIN" ]; then
 	echo "Domain name is not empty."
-	sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh)' '' \
+	sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)' '' \
 		--domain=$DOMAIN \
 		--server-name=$DOMAIN \
 		--port=$RANDOM_PORT"
 
-	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh)" '' --domain=$DOMAIN
+	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/certbot-generate-cert.sh)" '' --domain=$DOMAIN
 	if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ] ; then
 		echo "Cloudflare config is not empty."
-		sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh)' '' \
+		sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)' '' \
 			--cloudflare-zone=$CLOUDFLARE_ZONE \
 			--cloudflare-token=$CLOUDFLARE_TOKEN \
 			--domain=$DOMAIN \

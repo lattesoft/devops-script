@@ -113,15 +113,15 @@ sudo apt-get install jenkins -y
 ## Nginx Setup
 if [ -n "$DOMAIN" ]; then
 	echo "Domain name is not empty."
-	sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh)' '' \
+	sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)' '' \
 		--domain=$DOMAIN \
 		--server-name=$DOMAIN \
 		--port=8080"
 
-	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh)" '' --domain=$DOMAIN
+	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/certbot-generate-cert.sh)" '' --domain=$DOMAIN
 	if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ] ; then
 		echo "Cloudflare config is not empty."
-		sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh)' '' \
+		sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)' '' \
 			--cloudflare-zone=$CLOUDFLARE_ZONE \
 			--cloudflare-token=$CLOUDFLARE_TOKEN \
 			--domain=$DOMAIN \
@@ -138,6 +138,6 @@ sudo sh -c 'echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
 sudo service jenkins restart
 if ! which docker > /dev/null 2>&1; then
     echo "Docker not installed"
-    wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/docker.sh | sudo bash
+    wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/install/ubuntu/docker.sh | sudo bash
 fi
 sudo gpasswd -a jenkins docker

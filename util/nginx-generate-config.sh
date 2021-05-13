@@ -65,7 +65,7 @@ done
 
 if ! which nginx > /dev/null 2>&1; then
     echo "Nginx not installed"
-    wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/nginx.sh | sudo bash
+    wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/install/ubuntu/nginx.sh | sudo bash
 fi
 
 echo ">> Generating nginx config file" &&

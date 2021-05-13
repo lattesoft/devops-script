@@ -162,14 +162,14 @@ docker run -p $PORT:27017 -d \
     -e MONGO_INITDB_ROOT_PASSWORD=$PASSWORD \
     --name $DB_NAME --restart always mongo
 
-bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/clean.sh)"
+bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/clean.sh)"
 
 ## Domain Setup
 if [ -n "$DOMAIN" ]; then
 	echo "Setting up domain name"
-	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh)" "" --domain=$DOMAIN --server-name=$DOMAIN --port=$PORT
+	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)" "" --domain=$DOMAIN --server-name=$DOMAIN --port=$PORT
 	if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ]; then
 		echo "Cloudflare config is not empty."
-		bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh)" "" -cz $CLOUDFLARE_ZONE -ct $CLOUDFLARE_TOKEN -d $DOMAIN -cdt $CLOUDFLARE_DNS_TYPE -cdc $CLOUDFLARE_DNS_CONTENT -cdtl 120 -cdp false
+		bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)" "" -cz $CLOUDFLARE_ZONE -ct $CLOUDFLARE_TOKEN -d $DOMAIN -cdt $CLOUDFLARE_DNS_TYPE -cdc $CLOUDFLARE_DNS_CONTENT -cdtl 120 -cdp false
 	fi
 fi

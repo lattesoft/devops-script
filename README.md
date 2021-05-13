@@ -4,7 +4,7 @@
 ## Install Jenkins
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh)' '' -h
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/install/ubuntu/jenkins.sh)' '' -h
 ```
 
 | Parameter                                      | Description                      |
@@ -22,19 +22,19 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 Setup Jenkins only.
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh)"
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/install/ubuntu/jenkins.sh)"
 ```
 
 Setup Jenkins and generate nginx file
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh)' '' -d jenkins.example.com
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/install/ubuntu/jenkins.sh)' '' -d jenkins.example.com
 ```
 
 Setup Jenkins, generate nginx file and update Cloudflare DNS (CNAME).
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh)' '' \
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/install/ubuntu/jenkins.sh)' '' \
 -d jenkins.example.com \
 -cz a4b6339fdb9dvdf4e7d34327c5a01243 \
 -ct kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc \
@@ -45,7 +45,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 Setup Jenkins, generate nginx file and update Cloudflare DNS (A).
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh)' '' \
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/install/ubuntu/jenkins.sh)' '' \
 -d jenkins.example.com \
 -cz a4b6339fdb9dvdf4e7d34327c5a01243 \
 -ct kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc \
@@ -58,7 +58,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 ## Generate nginx config file
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh)' '' -h
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)' '' -h
 ```
 | Parameter                                      | Description                       |
 |------------------------------------------------|-----------------------------------|
@@ -70,7 +70,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 ### Example
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh)' '' \
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)' '' \
 -d domain.example.com \
 -sn server.example.com \
 -p 8080
@@ -81,7 +81,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 ## Setup Let's encrypt ssl certificate
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh)' '' -h
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/certbot-generate-cert.sh)' '' -h
 ```
 
 | Parameter                                      | Description                       |
@@ -92,7 +92,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 ### Example
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh)' '' -d example.com
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/certbot-generate-cert.sh)' '' -d example.com
 ```
 
 <br/>
@@ -101,7 +101,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 ## Update cloudflare DNS
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh)' '' -h
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)' '' -h
 ```
 
 | Parameter                                      | Description                                      |
@@ -118,7 +118,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 ### Example
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh)' '' \
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)' '' \
 -cz a4b6339fdb9dvdf4e7d34327c5a01243 \
 -ct kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc \
 -d jenkins.example.com \
@@ -134,7 +134,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 ## Run MongoDB container
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/run-mongodb.sh)' '' -h
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/run-mongodb.sh)' '' -h
 ```
 
 | Parameter                                     | Description                                       |
@@ -157,7 +157,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 Run only MongoDB
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/run-mongodb.sh)' '' \
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/run-mongodb.sh)' '' \
 -n mongo \
 -p 27017 \
 -u admin \
@@ -167,7 +167,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 Run MongoDB and setup host name
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/run-mongodb.sh)' '' \
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/run-mongodb.sh)' '' \
 -n mongo \
 -p 27017 \
 -u admin \
@@ -186,7 +186,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 ## Build and run application container
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/build-run-app.sh)' '' -h
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/build-run-app.sh)' '' -h
 ```
 
 | Parameter                                     | Description                                       |
@@ -207,7 +207,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 Run only application container
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/build-run-app.sh)' '' \
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/build-run-app.sh)' '' \
 -f Dockerfile \
 -i company/example-image \
 -c example-container \
@@ -217,7 +217,7 @@ bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-scrip
 Run MongoDB and setup host name
 
 ```shell
-bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/build-run-app.sh)' '' \
+bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/build-run-app.sh)' '' \
 -f Dockerfile \
 -i company/example-image \
 -c example-container \
