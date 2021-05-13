@@ -136,4 +136,8 @@ fi
 echo "Setting up jenkins use sudo without password."
 sudo sh -c 'echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
 sudo service jenkins restart
+if ! which docker > /dev/null 2>&1; then
+    echo "Docker not installed"
+    wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/docker.sh | sudo bash
+fi
 sudo gpasswd -a jenkins docker
