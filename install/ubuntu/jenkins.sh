@@ -113,15 +113,15 @@ sudo apt-get install jenkins -y
 ## Nginx Setup
 if [ -n "$1" ]; then
 	echo "Domain name is not empty."
-	wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh | sudo sh -c 'sudo bash -s \
+	sudo sh -c 'bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh)" "" \
 		--domain=$DOMAIN \
 		--server-name=$DOMAIN \
 		--port=8080'
 
-	wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh | sudo bash -s --domain=$DOMAIN
+	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh)" '' --domain=$DOMAIN
 	if [ -n "$2" ] && [ -n "$3" ] && [ -n "$4" ] && [ -n "$5" ]; then
 		echo "Cloudflare config is not empty."
-		wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh | sudo sh -c 'sudo bash -s \
+		sudo sh -c 'bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh)" "" \
 			--cloudflare-zone=$CLOUDFLARE_ZONE \
 			--cloudflare-token=$CLOUDFLARE_TOKEN \
 			--domain=$DOMAIN \
