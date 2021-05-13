@@ -42,6 +42,8 @@ Setup Jenkins, generate nginx file and update Cloudflare DNS (A).
 ```shell
 wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh | sudo bash -s jenkins.example.com a4b6339fdb9dvdf4e7d34327c5a01243 kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc A 1.2.3.4
 ```
+<br/>
+
 ---
 ## Generate nginx config file
 
@@ -60,6 +62,8 @@ wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util
 ```shell
 wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh | sudo bash -s domain.example.com server.example.com 8080
 ```
+<br/>
+
 ---
 ## Setup Let's encrypt ssl certificate
 
@@ -74,6 +78,37 @@ wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util
 ```shell
 wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh | sudo bash -s example.com
 ```
+
+<br/>
+
+---
+## Update cloudflare DNS
+
+```shell
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh | sudo bash -s $CLOUDFLARE_ZONE $CLOUDFLARE_TOKEN $DOMAIN_NAME $CLOUDFLARE_DNS_TYPE $CLOUDFLARE_DNS_CONTENT $CLOUDFLARE_DNS_TTL $CLOUDFLARE_DNS_PROXIED
+```
+
+`$CLOUDFLARE_ZONE` Cloudflare zone ID.
+
+`$CLOUDFLARE_TOKEN` Cloudflare token.
+
+`$DOMAIN_NAME` Web domain name.
+
+`$CLOUDFLARE_DNS_TYPE` Cloudflare DNS type.
+
+`$CLOUDFLARE_DNS_CONTENT` Cloudflare DNS content.
+
+`$CLOUDFLARE_DNS_TTL` TTL Expiration.
+
+`$CLOUDFLARE_DNS_PROXIED` Cloudflare proxied (true or false).
+
+### Example
+
+```shell
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh | sudo bash -s a4b6339fdb9dvdf4e7d34327c5a01243 kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc jenkins.example.com A 1.2.3.4 120 false
+```
+<br/>
+
 ## License
 
 MIT
