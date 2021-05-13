@@ -4,18 +4,18 @@
 ## Install Jenkins
 
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh | sudo bash -s $DOMAIN_NAME $CLOUDFLARE_ZONE $CLOUDFLARE_TOKEN $CLOUDFLARE_DNS_TYPE $CLOUDFLARE_DNS_CONTENT
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh | sudo bash -h
 ```
 
-`$DOMAIN_NAME` Jenkins's domain name
+| Parameter                                      | Description                      |
+|------------------------------------------------|----------------------------------|
+| `-h, --help`                                   | show brief help                  |
+| `-d, --domain=DOMAIN_NAME`                     | specify a domain name            |
+| `-cz, --cloudflare-zone=ZONE_ID`               | specify a CloudFlare zone ID     |
+| `-ct, --cloudflare-token=TOKEN`                | specify a CloudFlare token       |
+| `-cdt, --cloudflare-dns-type=DNS_TYPE`         | specify a CloudFlare DNS type    |  
+| `-cdc, --cloudflare-dns-content=DNS_CONTENT`   | specify a CloudFlare DNS type    |
 
-`$CLOUDFLARE_ZONE` Cloudflare zone ID (Optional)
-
-`$CLOUDFLARE_TOKEN` Cloudflare token (Optional)
-
-`$CLOUDFLARE_DNS_TYPE` Cloudflare DNS type (Optional)
-
-`$CLOUDFLARE_DNS_CONTENT` Cloudflare DNS content (Optional)
 
 ### Example
 
@@ -28,19 +28,29 @@ wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/inst
 Setup Jenkins and generate nginx file
 
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh | sudo bash -s jenkins.example.com
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh | sudo bash -s -d jenkins.example.com
 ```
 
 Setup Jenkins, generate nginx file and update Cloudflare DNS (CNAME).
 
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh | sudo bash -s jenkins.example.com a4b6339fdb9dvdf4e7d34327c5a01243 kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc CNAME host.example.com
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh | sudo bash -s \
+-d jenkins.example.com \
+-cz a4b6339fdb9dvdf4e7d34327c5a01243 \
+-ct kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc \
+-cdt CNAME \
+-cdc host.example.com
 ```
 
 Setup Jenkins, generate nginx file and update Cloudflare DNS (A).
 
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh | sudo bash -s jenkins.example.com a4b6339fdb9dvdf4e7d34327c5a01243 kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc A 1.2.3.4
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/jenkins.sh | sudo bash -s \
+-d jenkins.example.com \
+-cz a4b6339fdb9dvdf4e7d34327c5a01243 \
+-ct kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc \
+-cdt A \
+-cdc 1.2.3.4
 ```
 <br/>
 
@@ -48,19 +58,22 @@ wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/inst
 ## Generate nginx config file
 
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh | sudo bash -s $DOMAIN_NAME $SERVER_NAME $PORT
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh | sudo bash -s -h
 ```
-
-`$DOMAIN_NAME` Nginx domain name.
-
-`$SERVER_NAME` Nginx server name.
-
-`$PORT` Docker container port.
+| Parameter                                      | Description                       |
+|------------------------------------------------|-----------------------------------|
+| `-h, --help`                                   | show brief help                   |
+| `-d, --domain=DOMAIN_NAME`                     | specify a domain name             |
+| `-sn, --server-name=SERVER_NAME`               | specify a server name             |
+| `-p, --port=PORT`                              | specify a container port          |
 
 ### Example
 
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh | sudo bash -s domain.example.com server.example.com 8080
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh | sudo bash -s \
+-d domain.example.com \
+-sn server.example.com \
+-p 8080
 ```
 <br/>
 
@@ -68,15 +81,18 @@ wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util
 ## Setup Let's encrypt ssl certificate
 
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh | sudo bash -s $DOMAIN_NAME
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh | sudo bash -s -h
 ```
 
-`$DOMAIN_NAME` Web domain name.
+| Parameter                                      | Description                       |
+|------------------------------------------------|-----------------------------------|
+| `-h, --help`                                   | show brief help                   |
+| `-d, --domain=DOMAIN_NAME`                     | specify a domain name             |
 
 ### Example
 
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh | sudo bash -s example.com
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh | sudo bash -s -d example.com
 ```
 
 <br/>
@@ -85,27 +101,31 @@ wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util
 ## Update cloudflare DNS
 
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh | sudo bash -s $CLOUDFLARE_ZONE $CLOUDFLARE_TOKEN $DOMAIN_NAME $CLOUDFLARE_DNS_TYPE $CLOUDFLARE_DNS_CONTENT $CLOUDFLARE_DNS_TTL $CLOUDFLARE_DNS_PROXIED
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh | sudo bash -s -h
 ```
 
-`$CLOUDFLARE_ZONE` Cloudflare zone ID.
-
-`$CLOUDFLARE_TOKEN` Cloudflare token.
-
-`$DOMAIN_NAME` Web domain name.
-
-`$CLOUDFLARE_DNS_TYPE` Cloudflare DNS type.
-
-`$CLOUDFLARE_DNS_CONTENT` Cloudflare DNS content.
-
-`$CLOUDFLARE_DNS_TTL` TTL Expiration.
-
-`$CLOUDFLARE_DNS_PROXIED` Cloudflare proxied (true or false).
+| Parameter                                      | Description                                      |
+|------------------------------------------------|--------------------------------------------------|
+| `-h, --help`                                   | show brief help                                  |
+| `-d, --domain=DOMAIN_NAME`                     | specify a domain name                            |
+| `-cz, --cloudflare-zone=ZONE_ID`               | specify a CloudFlare zone ID                     |
+| `-ct, --cloudflare-token=TOKEN`                | specify a CloudFlare token                       |
+| `-cdt, --cloudflare-dns-type=DNS_TYPE`         | specify a CloudFlare DNS type                    |  
+| `-cdc, --cloudflare-dns-content=DNS_CONTENT`   | specify a CloudFlare DNS type                    |
+| `-cdtl, --cloudflare-dns-ttl=TTL`              | specify a CloudFlare DNS TTL (Secound)           |
+| `-cdp, --cloudflare-dns-proxied=PROXIED`       | specify a CloudFlare DNS proxied (true or false) |
 
 ### Example
 
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh | sudo bash -s a4b6339fdb9dvdf4e7d34327c5a01243 kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc jenkins.example.com A 1.2.3.4 120 false
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh | sudo bash -s \
+-cz a4b6339fdb9dvdf4e7d34327c5a01243 \
+-ct kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc \
+-d jenkins.example.com \
+-cdt A \
+-cdc 1.2.3.4 \
+-cdtl 120 \
+-cdp false
 ```
 
 <br/>
@@ -114,21 +134,50 @@ wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util
 ## Run DB container
 
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/run-mongodb.sh | sudo bash -s $DB_NAME $PORT $USERNAME $PASSWORD
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/run-mongodb.sh | sudo bash -s -h
 ```
 
-`$DB_NAME` Container name.
+| Parameter                                     | Description                                       |
+|-----------------------------------------------|---------------------------------------------------|
+| `-h, --help`                                  | show brief help                                   |
+| `-n, --name=NAME`                             | specify a database name                           |
+| `-p, --port=PORT`                             | specify a database port number                    |
+| `-u, --username=USERNAME`                     | specify an username                               |
+| `-pa, --password=PASSWORD`                    | specify a password                                |
+| `-d, --domain=DOMAIN_NAME`                    | pecify a domain name                              |
+| `-cz, --cloudflare-zone=ZONE_ID `             | specify a CloudFlare zone ID                      |
+| `-ct, --cloudflare-token=TOKEN`               | specify a CloudFlare token                        |
+| `-cdt, --cloudflare-dns-type=DNS_TYPE`        | specify a CloudFlare DNS type                     |
+| `-cdc, --cloudflare-dns-content=DNS_CONTENT`  | specify a CloudFlare DNS type                     |
 
-`$PORT` Container port.
 
-`$USERNAME` Admin username.
-
-`$PASSWORD` Admin password.
 
 ### Example
 
+Run only MongoDB
+
 ```shell
-wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/run-mongodb.sh | sudo bash -s mongo 27017 admin pass
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/run-mongodb.sh | sudo bash -s \
+-n mongo \
+-p 27017 \
+-u admin \
+-pa pass 
+```
+
+Run MongoDB and setup host name
+
+```shell
+wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/docker/run-mongodb.sh | sudo bash -s \
+-n mongo \
+-p 27017 \
+-u admin \
+-pa pass \
+-d jenkins.example.com \
+-cz a4b6339fdb9dvdf4e7d34327c5a01243 \
+-ct kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc \
+-cdt CNAME \
+-cdc host.example.com
+
 ```
 
 <br>
