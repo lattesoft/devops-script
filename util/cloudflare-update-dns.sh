@@ -127,7 +127,7 @@ done
 
 
 echo ">> Updating dns record to cloudflare"
-FIND_DNS=$(curl -X GET "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/dns_records?name=$DOMAIN_NAME" \
+FIND_DNS=$(curl -X GET "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/dns_records?name=$DOMAIN_NAME") \
      -H "Content-Type:application/json" \
      -H "Authorization: Bearer $CLOUDFLARE_TOKEN" | jq -r '.result')
 

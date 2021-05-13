@@ -200,8 +200,7 @@ if [ -n "$DOMAIN" ]; then
 		--server-name=$DOMAIN \
 		--port=$RANDOM_PORT"
 
-	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/certbot-generate-cert.sh)" '' --domain=$DOMAIN
-	if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ] ; then
+	if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ]; then
 		echo "Cloudflare config is not empty."
 		sudo sh -c "bash -c \"$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)\" '' \
 			--cloudflare-zone=$CLOUDFLARE_ZONE \
@@ -211,5 +210,7 @@ if [ -n "$DOMAIN" ]; then
 			--cloudflare-dns-content=$CLOUDFLARE_DNS_CONTENT \
 			--cloudflare-dns-ttl=120 \
 			--cloudflare-dns-proxied=false"
+
+    bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/certbot-generate-cert.sh)" '' --domain=$DOMAIN
 	fi
 fi
