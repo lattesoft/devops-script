@@ -194,8 +194,8 @@ bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-scrip
 
 ## Nginx Setup
 if [ -n "$DOMAIN" ]; then
-	echo "Domain name is not empty."
-	sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)' '' \
+	echo "Domain name is $DOMAIN."
+	sudo sh -c "bash -c \"$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)\" '' \
 		--domain=$DOMAIN \
 		--server-name=$DOMAIN \
 		--port=$RANDOM_PORT"
@@ -203,7 +203,7 @@ if [ -n "$DOMAIN" ]; then
 	bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/certbot-generate-cert.sh)" '' --domain=$DOMAIN
 	if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ] ; then
 		echo "Cloudflare config is not empty."
-		sudo sh -c "bash -c '$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)' '' \
+		sudo sh -c "bash -c \"$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)\" '' \
 			--cloudflare-zone=$CLOUDFLARE_ZONE \
 			--cloudflare-token=$CLOUDFLARE_TOKEN \
 			--domain=$DOMAIN \
