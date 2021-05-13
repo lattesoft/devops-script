@@ -25,19 +25,10 @@ sudo apt-get install jenkins -y
 ## Nginx Setup
 if [ -n "$1" ]; then
 	echo "Domain name is not empty."
-
-	if ! which nginx > /dev/null 2>&1; then
-    	   echo "Nginx not installed"
-	   wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/nginx.sh | sudo bash
-	fi
 	wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/nginx-generate-config.sh | sudo bash -s $DOMAIN $DOMAIN 8080
-	if ! which certbot > /dev/null 2>&1; then
-           echo "Certbot not installed"
-	   wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/install/ubuntu/certbot.sh | sudo bash
-        fi
 	wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/certbot-generate-cert.sh | sudo bash -s $DOMAIN
 	if [ -n "$2" ] && [ -n "$3" ] && [ -n "$4" ] && [ -n "$5" ]; then
-		echo "Cloudflare Config is not empty."
+		echo "Cloudflare config is not empty."
 		wget -q -O - https://raw.githubusercontent.com/lattesoft/server-script/main/util/cloudflare-update-dns.sh | sudo bash -s $CLOUDFLARE_ZONE $CLOUDFLARE_TOKEN $DOMAIN $CLOUDFLARE_DNS_TYPE $CLOUDFLARE_DNS_CONTENT 120 false
 	fi
 fi
