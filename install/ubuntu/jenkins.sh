@@ -139,5 +139,5 @@ sudo service jenkins restart
 if ! which docker > /dev/null 2>&1; then
     echo "Docker not installed"
     wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/install/ubuntu/docker.sh | sudo bash
+    sudo gpasswd -a jenkins docker
 fi
-sudo gpasswd -a jenkins docker
