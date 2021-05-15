@@ -217,22 +217,19 @@ if [ -n "$DOMAIN" ]; then
     echo ">> Server name: $DOMAIN"
     SERVER_NAME=$DOMAIN
   fi
-
-	sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)" '' --domain=$DOMAIN --server-name=$SERVER_NAME --port=$RANDOM_PORT
-
-	if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ]; then
-		echo ">> Updating cloudflare."
-    IFS="," read -a SERVER_NAME_ARRAY <<< $SERVER_NAME
-    IFS="," read -a CLOUDFLARE_ZONE_ARRAY <<< $CLOUDFLARE_ZONE
-    for (( i=0; i<=${#SERVER_NAME_ARRAY[@]}; i++ )); do
+  IFS="," read -a SERVER_NAME_ARRAY <<< $SERVER_NAME
+  IFS="," read -a CLOUDFLARE_ZONE_ARRAY <<< $CLOUDFLARE_ZONE
+  for (( i=0; i<=${#SERVER_NAME_ARRAY[@]}; i++ )); do
       if [ -n "${SERVER_NAME_ARRAY[$i]}" ]; then
-        echo ">> Updating DNS ${SERVER_NAME_ARRAY[$i]}"
-        sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)" '' --cloudflare-zone=${CLOUDFLARE_ZONE_ARRAY[$i]} --cloudflare-token=$CLOUDFLARE_TOKEN --domain=${SERVER_NAME_ARRAY[$i]} --cloudflare-dns-type=$CLOUDFLARE_DNS_TYPE --cloudflare-dns-content=$CLOUDFLARE_DNS_CONTENT --cloudflare-dns-ttl=120 --cloudflare-dns-proxied=false
-        echo ">> Generating ssl ${SERVER_NAME_ARRAY[$i]}"
-        sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/certbot-generate-cert.sh)" '' --domain=${SERVER_NAME_ARRAY[$i]}
+        sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)" '' --domain=${SERVER_NAME_ARRAY[$i]} --server-name=${SERVER_NAME_ARRAY[$i]} --port=$RANDOM_PORT
+
+        if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ]; then
+          echo ">> Updating cloudflare."
+            echo ">> Updating DNS ${SERVER_NAME_ARRAY[$i]}"
+            sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/cloudflare-update-dns.sh)" '' --cloudflare-zone=${CLOUDFLARE_ZONE_ARRAY[$i]} --cloudflare-token=$CLOUDFLARE_TOKEN --domain=${SERVER_NAME_ARRAY[$i]} --cloudflare-dns-type=$CLOUDFLARE_DNS_TYPE --cloudflare-dns-content=$CLOUDFLARE_DNS_CONTENT --cloudflare-dns-ttl=120 --cloudflare-dns-proxied=false
+            echo ">> Generating ssl ${SERVER_NAME_ARRAY[$i]}"
+            sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/certbot-generate-cert.sh)" '' --domain=${SERVER_NAME_ARRAY[$i]}
+        fi
       fi
-      
-    done
-		
-	fi
+  done
 fi
