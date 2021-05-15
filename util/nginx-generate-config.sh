@@ -10,8 +10,8 @@ while test $# -gt 0; do
       echo "options:"
       echo "-h, --help                                  show brief help"
       echo "-p, --port=PORT                             specify a database port number"
-      echo "-d, --domain=DOMAIN_NAME                    pecify a domain name"
-      echo "-sn, --server-name=SERVER_NAME              pecify a server name"
+      echo "-d, --domain=DOMAIN_NAME                    specify a domain name"
+      echo "-sn, --server-name=SERVER_NAME              specify a server name"
       exit 0
       ;;
 
@@ -76,8 +76,8 @@ server {
     location / {
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
-	    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-	    proxy_set_header X-Forwarded-Host \$host;
+	      proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+	      proxy_set_header X-Forwarded-Host \$host;
         proxy_set_header X-Forwarded-Port \$server_port;
         proxy_set_header X-Forwarded-Server \$host;
         proxy_set_header X-Forwarded-Proto \$scheme;
