@@ -210,9 +210,12 @@ sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-
 ## Nginx Setup
 if [ -n "$DOMAIN" ]; then
 	echo ">> Domain name is $DOMAIN."
-  if [ -z "$SERVER_NAME" ]; then
-    SERVER_NAME="$DOMAIN"
+  if [ -n "$SERVER_NAME" ]; then
+
+  else
+    SERVER_NAME=$DOMAIN
   fi
+  
 	sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/util/nginx-generate-config.sh)" '' --domain=$DOMAIN --server-name=$SERVER_NAME --port=$RANDOM_PORT
 
 	if [ -n "$CLOUDFLARE_ZONE" ] && [ -n "$CLOUDFLARE_TOKEN" ] && [ -n "$CLOUDFLARE_DNS_TYPE" ] && [ -n "$CLOUDFLARE_DNS_CONTENT" ]; then
