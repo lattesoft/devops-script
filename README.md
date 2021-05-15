@@ -198,7 +198,7 @@ bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-scrip
 | `-p, --port=PORT`                             | specify a container port                          |
 | `-d, --domain=DOMAIN_NAME`                    | specify a domain name                             |
 | `-sn, --server-name=SERVER_NAME`              | specify a server name                             |
-| `-cz, --cloudflare-zone=ZONE_ID`              | specify a CloudFlare zone ID                      |
+| `-cz, --cloudflare-zone=ZONE_ID`              | specify a CloudFlare zone ID.                     |
 | `-ct, --cloudflare-token=TOKEN`               | specify a CloudFlare token                        |
 | `-cdt, --cloudflare-dns-type=DNS_TYPE`        | specify a CloudFlare DNS type                     |
 | `-cdc, --cloudflare-dns-content=DNS_CONTENT`  | specify a CloudFlare DNS type                     |
@@ -215,7 +215,7 @@ bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-scrip
 -p 3000
 ```
 
-Run MongoDB and setup host name
+Run application and setup host name
 
 ```shell
 bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/build-run-app.sh)" '' \
@@ -225,6 +225,25 @@ bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-scrip
 -p 3000
 -d app.example.com \
 -cz a4b6339fdb9dvdf4e7d34327c5a01243 \
+-ct kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc \
+-cdt CNAME \
+-cdc host.example.com
+
+```
+
+Run application and setup multiple host name.
+
+Cloudflare zone must be multiple ID depend on server name.
+
+```shell
+bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/build-run-app.sh)" '' \
+-f Dockerfile \
+-i company/example-image \
+-c example-container \
+-p 3000
+-d app.example.com \
+-sn app.example.com,app2.example.com
+-cz a4b6339fdb9dvdf4e7d34327c5a01243,a4b6339fdb9dvdf4e7d34327c5a01243 \
 -ct kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc \
 -cdt CNAME \
 -cdc host.example.com
