@@ -210,7 +210,8 @@ sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-
 ## Nginx Setup
 if [ -n "$DOMAIN" ]; then
 	echo ">> Domain name is $DOMAIN."
-  if [ -n "$SERVER_NAME" ]; then
+  if [ -n "$SERVER_NAME" ] 
+  then
     echo ">> Server name: $SERVER_NAME"
   else
     echo ">> Server name: $DOMAIN"
