@@ -197,6 +197,7 @@ bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-scrip
 | `-c, --container-name=CONTAINER_NAME`         | specify a container name                          |
 | `-p, --port=PORT`                             | specify a container port                          |
 | `-d, --domain=DOMAIN_NAME`                    | specify a domain name                             |
+| `-sn, --server-name=SERVER_NAME`              | specify a server name                             |
 | `-cz, --cloudflare-zone=ZONE_ID`              | specify a CloudFlare zone ID                      |
 | `-ct, --cloudflare-token=TOKEN`               | specify a CloudFlare token                        |
 | `-cdt, --cloudflare-dns-type=DNS_TYPE`        | specify a CloudFlare DNS type                     |
