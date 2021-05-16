@@ -19,6 +19,7 @@ while test $# -gt 0; do
       echo "-ct, --cloudflare-token=TOKEN                 specify a CloudFlare token"
       echo "-cdt, --cloudflare-dns-type=DNS_TYPE          specify a CloudFlare DNS type"
       echo "-cdc, --cloudflare-dns-content=DNS_CONTENT    specify a CloudFlare DNS type"
+      echo "-e, --env=ENV_FILE                            specify a environment variables file"
 
       exit 0
       ;;
@@ -162,6 +163,20 @@ while test $# -gt 0; do
       export SERVER_NAME=`echo $1 | sed -e 's/^[^=]*=//g'`
       shift
       ;;
+    -e)
+      shift
+      if test $# -gt 0; then
+        export ENVIRONMENT_FILE=$1
+      else
+        echo "no server name specified"
+        exit 1
+      fi
+      shift
+      ;;
+    --env*)
+      export ENVIRONMENT_FILE=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
+      ;;
     *)
       break
       ;;
@@ -202,7 +217,12 @@ echo ">> Building image" &&
 docker 2>/dev/null 1>&2 stop $CONTAINER_NAME || true &&
 docker 2>/dev/null 1>&2 rm $CONTAINER_NAME || true && 
 echo ">> Running container" &&
-docker run -p $RANDOM_PORT:$PORT -d --name $CONTAINER_NAME --restart always $IMAGE_NAME
+if [ -n "$ENVIRONMENT_FILE" ] 
+then
+  docker run -p $RANDOM_PORT:$PORT -d --name $CONTAINER_NAME --env-file $ENVIRONMENT_FILE --restart always $IMAGE_NAME
+else
+  docker run -p $RANDOM_PORT:$PORT -d --name $CONTAINER_NAME --restart always $IMAGE_NAME
+fi
 
 sudo bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/clean.sh)"
 
