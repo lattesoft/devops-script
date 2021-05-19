@@ -20,6 +20,7 @@ while test $# -gt 0; do
       echo "-cdt, --cloudflare-dns-type=DNS_TYPE          specify a CloudFlare DNS type"
       echo "-cdc, --cloudflare-dns-content=DNS_CONTENT    specify a CloudFlare DNS type"
       echo "-e, --env=ENV_FILE                            specify a environment variables file"
+      echo "-l, --link=LINK_CONTAINER                     specify a container to link network"
 
       exit 0
       ;;
@@ -177,6 +178,20 @@ while test $# -gt 0; do
       export ENVIRONMENT_FILE=`echo $1 | sed -e 's/^[^=]*=//g'`
       shift
       ;;
+    -l)
+      shift
+      if test $# -gt 0; then
+        export LINK_CONTAINER=$1
+      else
+        echo "no container name specified"
+        exit 1
+      fi
+      shift
+      ;;
+    --link*)
+      export LINK_CONTAINER=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
+      ;;
     *)
       break
       ;;
@@ -217,7 +232,13 @@ echo ">> Building image" &&
 docker 2>/dev/null 1>&2 stop $CONTAINER_NAME || true &&
 docker 2>/dev/null 1>&2 rm $CONTAINER_NAME || true && 
 echo ">> Running container" &&
-if [ -n "$ENVIRONMENT_FILE" ] 
+if [ -n "$ENVIRONMENT_FILE" ] && [ -n "$LINK_CONTAINER" ]
+then
+  docker run -p $RANDOM_PORT:$PORT -d --name $CONTAINER_NAME --env-file $ENVIRONMENT_FILE --link $LINK_CONTAINER --restart always $IMAGE_NAME
+elif [ -n "$LINK_CONTAINER" ]
+then
+  docker run -p $RANDOM_PORT:$PORT -d --name $CONTAINER_NAME --link $LINK_CONTAINER --restart always $IMAGE_NAME
+elif [ -n "$ENVIRONMENT_FILE" ]
 then
   docker run -p $RANDOM_PORT:$PORT -d --name $CONTAINER_NAME --env-file $ENVIRONMENT_FILE --restart always $IMAGE_NAME
 else
