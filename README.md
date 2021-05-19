@@ -202,6 +202,7 @@ bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-scrip
 | `-ct, --cloudflare-token=TOKEN`               | specify a CloudFlare token                        |
 | `-cdt, --cloudflare-dns-type=DNS_TYPE`        | specify a CloudFlare DNS type                     |
 | `-cdc, --cloudflare-dns-content=DNS_CONTENT`  | specify a CloudFlare DNS type                     |
+| `-l, --link=LINK_CONTAINER`                   | specify a container to link                       |
 
 ### Example
 
@@ -247,6 +248,19 @@ bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-scrip
 -ct kmKnSpBCEvvfsRXLiLSkE8gR6TtvtWSc \
 -cdt CNAME \
 -cdc host.example.com
+
+```
+
+Link container name
+
+```shell
+bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/docker/build-run-app.sh)" '' \
+-f Dockerfile \
+-i company/example-image \
+-c example-container \
+-p 3000
+-d app.example.com \
+-l container1:c1
 
 ```
 
