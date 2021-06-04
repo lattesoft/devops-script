@@ -91,7 +91,7 @@ FILE=/etc/nginx/sites-enabled/$DOMAIN
 if [ -f "$FILE" ]; then
     echo ">> $FILE exists."
 else
-    ln -s /etc/nginx/sites-available/$DOMAIN /etc/nginx/sites-enabled
+    sudo ln -s /etc/nginx/sites-available/$DOMAIN /etc/nginx/sites-enabled
     echo ">> Link nginx config file success."
 fi
 
