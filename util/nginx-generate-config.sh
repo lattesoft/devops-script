@@ -82,7 +82,7 @@ server {
         proxy_set_header X-Forwarded-Server \$host;
         proxy_set_header X-Forwarded-Proto \$scheme;
 	proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_read_timeout 86400;
         proxy_pass http://0.0.0.0:$PORT;
