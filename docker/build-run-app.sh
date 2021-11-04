@@ -21,6 +21,10 @@ while test $# -gt 0; do
       echo "-cdc, --cloudflare-dns-content=DNS_CONTENT    specify a CloudFlare DNS type"
       echo "-e, --env=ENV_FILE                            specify a environment variables file"
       echo "-l, --link=LINK_CONTAINER                     specify a container to link network"
+      echo "-bmem, --build-memory=MEMORY                  specify a memory to build image"
+      echo "-bcpus, --build-cpus=CPUS                     specify the cpus to build image"
+      echo "-rmem, --run-memory=MEMORY                  specify a memory to run image"
+      echo "-rcpus, --run-cpus=CPUS                     specify the cpus to run image"
 
       exit 0
       ;;
@@ -192,6 +196,65 @@ while test $# -gt 0; do
       export LINK_CONTAINER=`echo $1 | sed -e 's/^[^=]*=//g'`
       shift
       ;;
+    -bmem)
+      shift
+      if test $# -gt 0; then
+        export BUILD_MEMORY=$1
+      else
+        echo "no build memory specified"
+        exit 1
+      fi
+      shift
+      ;;
+    --build-memory*)
+      export BUILD_MEMORY=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
+      ;;
+    -bcpus)
+      shift
+      if test $# -gt 0; then
+        export BUILD_CPUS=$1
+      else
+        echo "no build cpus specified"
+        exit 1
+      fi
+      shift
+      ;;
+    --build-cpus*)
+      export BUILD_CPUS=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
+      ;;
+      
+    -rmem)
+      shift
+      if test $# -gt 0; then
+        export RUN_MEMORY=$1
+      else
+        echo "no run memory specified"
+        exit 1
+      fi
+      shift
+      ;;
+    --run-memory*)
+      export RUN_MEMORY=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
+      ;;
+    -rcpus)
+      shift
+      if test $# -gt 0; then
+        export RUN_CPUS=$1
+      else
+        echo "no build cpus specified"
+        exit 1
+      fi
+      shift
+      ;;
+    --run-cpus*)
+      export RUN_CPUS=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
+      ;;
+      
+      
     *)
       break
       ;;
@@ -227,7 +290,21 @@ fi
 
 ## Build Docker
 echo ">> Building image" &&
-docker build -f $DOCKER_FILE -t $IMAGE_NAME . && 
+BUILD_IMAGE_CMD='docker build -f $DOCKER_FILE -t $IMAGE_NAME .'
+
+if [ -n "$BUILD_MEMORY" ] && [ -n "$BUILD_CPUS" ]
+then
+  eval $BUILD_IMAGE_CMD " --cpus= $BUILD_CPUS --memory=$BUILD_MEMORY"
+elif [ -n "$BUILD_MEMORY" ]
+then
+  eval $BUILD_IMAGE_CMD " --memory=$BUILD_MEMORY"
+elif [ -n "$BUILD_CPUS" ]
+then
+  eval $BUILD_IMAGE_CMD " --cpus= $BUILD_CPUS"
+else
+  eval $BUILD_IMAGE_CMD
+fi
+
 echo ">> Building image" &&
 docker 2>/dev/null 1>&2 stop $CONTAINER_NAME || true &&
 docker 2>/dev/null 1>&2 rm $CONTAINER_NAME || true && 
