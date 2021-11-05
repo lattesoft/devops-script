@@ -294,13 +294,13 @@ BUILD_IMAGE_CMD='docker build -f $DOCKER_FILE -t $IMAGE_NAME .'
 
 if [ -n "$BUILD_MEMORY" ] && [ -n "$BUILD_CPUS" ]
 then
-  eval $BUILD_IMAGE_CMD " --cpus= $BUILD_CPUS --memory=$BUILD_MEMORY"
+  eval $BUILD_IMAGE_CMD " --cpuset-cpus=$BUILD_CPUS --memory=$BUILD_MEMORY"
 elif [ -n "$BUILD_MEMORY" ]
 then
   eval $BUILD_IMAGE_CMD " --memory=$BUILD_MEMORY"
 elif [ -n "$BUILD_CPUS" ]
 then
-  eval $BUILD_IMAGE_CMD " --cpus= $BUILD_CPUS"
+  eval $BUILD_IMAGE_CMD " --cpuset-cpus=$BUILD_CPUS"
 else
   eval $BUILD_IMAGE_CMD
 fi
