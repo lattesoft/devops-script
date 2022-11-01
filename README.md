@@ -266,6 +266,25 @@ bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-scrip
 
 <br>
 
+---
+## Run Longhorn orphaned volumn
+
+```shell
+bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/longhorn/run-orphaned-volumn.sh)" '' ${PVC_NAME}
+```
+
+### Example
+
+Run only application container
+
+```shell
+bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/longhorn/run-orphaned-volumn.sh)" '' \
+pvc-23a7c4c3-5494-4d4d-826b-985e8f658030-b5bbf238 \
+pvc-5e2c43b6-40d3-47cf-b0bd-250027c196e9-11ebf7d
+```
+
+<br>
+
 ## License
 
 MIT
