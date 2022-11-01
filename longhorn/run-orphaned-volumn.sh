@@ -26,9 +26,9 @@ do
   echo "Checking mongodb config file: $DB_CONFIG_FILE_PATH"
   if [[ -f "$DB_CONFIG_FILE_PATH" ]]; then
     echo "$DB_CONFIG_FILE_PATH exists."
-    echo "****************** Starting for $PVC_NAME ******************" >> result.text
-    cat $DB_CONFIG_FILE_PATH >> result.text
-    echo "=================== End scrpit for $PVC_NAME ===================" >> result.text
+    echo "****************** Starting for $PVC_NAME ******************" >> mongodb_result.text
+    cat $DB_CONFIG_FILE_PATH >> mongodb_result.text
+    echo "=================== End scrpit for $PVC_NAME ===================" >> mongodb_result.text
   fi
 
   echo "=================== End scrpit for $PVC_NAME ==================="
