@@ -1,5 +1,5 @@
-rm -rf result.text
-touch result.text
+rm -rf mongodb_result.text
+touch mongodb_result.text
 i=1;
 for PVC_NAME in "$@"
 do
@@ -22,14 +22,14 @@ do
   mount /dev/longhorn/$PVC_NAME /var/mnt/$PVC_NAME
   ls /var/mnt/$PVC_NAME
   echo "New volume path has mounted: /var/mnt/$PVC_NAME"
-#   export DB_CONFIG_FILE_PATH="/var/mnt/$PVC_NAME/data/automation-mongod.conf"
-#   echo "Checking mongodb config file: $DB_CONFIG_FILE_PATH"
-#   if [[ -f "$DB_CONFIG_FILE_PATH" ]]; then
-#     echo "$DB_CONFIG_FILE_PATH exists."
-#     echo "****************** Starting for $PVC_NAME ******************" >> result.text
-#     cat $DB_CONFIG_FILE_PATH >> result.text
-#     echo "=================== End scrpit for $PVC_NAME ===================" >> result.text
-#   fi
+  export DB_CONFIG_FILE_PATH="/var/mnt/$PVC_NAME/data/automation-mongod.conf"
+  echo "Checking mongodb config file: $DB_CONFIG_FILE_PATH"
+  if [[ -f "$DB_CONFIG_FILE_PATH" ]]; then
+    echo "$DB_CONFIG_FILE_PATH exists."
+    echo "****************** Starting for $PVC_NAME ******************" >> result.text
+    cat $DB_CONFIG_FILE_PATH >> result.text
+    echo "=================== End scrpit for $PVC_NAME ===================" >> result.text
+  fi
 
   echo "=================== End scrpit for $PVC_NAME ==================="
 
