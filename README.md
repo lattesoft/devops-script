@@ -289,7 +289,7 @@ pvc-5e2c43b6-40d3-47cf-b0bd-250027c196e9-11ebf7d
 ## Run Longhorn volumn replacing command
 
 ```shell
-bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/longhorn/replace-volumn.sh)" '' ${PVC_TARGET_NAME};${PVC_SOURCE_NAME}
+bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/longhorn/replace-volumn.sh)" '' "${PVC_TARGET_NAME};${PVC_SOURCE_NAME}"
 ```
 
 ### Example
@@ -298,8 +298,8 @@ Run replacing command
 
 ```shell
 bash -c "$(wget -q -O - https://raw.githubusercontent.com/lattesoft/devops-script/main/longhorn/replace-volumn.sh)" '' \
-pvc-23a7c4c3-5494-4d4d-826b-985e8f658030-b5bbf238;pvc-5e2c43b6-40d3-47cf-b0bd-250027c196e9-11ebf7d \
-pvc-5e2c43b6-40d3-47cf-b0bd-250027c196e9-11ebf7d;pvc-5e2c43b6-40d3-47cf-b0bd-250027c196e9-11ebf7d
+"pvc-23a7c4c3-5494-4d4d-826b-985e8f658030-b5bbf238;pvc-5e2c43b6-40d3-47cf-b0bd-250027c196e9-11ebf7d" \
+"pvc-5e2c43b6-40d3-47cf-b0bd-250027c196e9-11ebf7d;pvc-5e2c43b6-40d3-47cf-b0bd-250027c196e9-11ebf7d"
 ```
 
 <br>
