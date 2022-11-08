@@ -12,10 +12,10 @@ do
   echo "****************** Starting for replacing $TARGET_PVC with $SOURCE_PVC ******************"
 
   echo "Copying backup: $TARGET_PVC"
-  cp -r $SOURCE_PATH "${SOURCE_PATH}-backup"
+  cp -r $TARGET_PVC "${TARGET_PVC}-backup"
 
   echo "Deleting: $TARGET_PVC"
-  rm -rf $SOURCE_PATH
+  rm -rf $TARGET_PVC
 
   echo "Replacing $TARGET_PVC with $SOURCE_PATH"
   cp -r $SOURCE_PATH $TARGET_PVC
