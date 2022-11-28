@@ -14,12 +14,12 @@ do
   echo "Geting info: $PVC_NAME"
   echo "Volume Size: $VOLUME_SIZE"
   echo "Running docker container..."
-  docker run --name $PVC_NAME -d -v /dev:/host/dev -v /proc:/host/proc -v $VOLUME_PATH:/volume --privileged longhornio/longhorn-engine:v1.1.1 launch-simple-longhorn $PVC_NAME $VOLUME_SIZE
+  sudo docker run --name $PVC_NAME -d -v /dev:/host/dev -v /proc:/host/proc -v $VOLUME_PATH:/volume --privileged longhornio/longhorn-engine:v1.1.1 launch-simple-longhorn $PVC_NAME $VOLUME_SIZE
   echo "Docker container has created: $PVC_NAME"
   sleep 10
   echo "Mounting path..."
-  mkdir /var/mnt/$PVC_NAME -p
-  mount /dev/longhorn/$PVC_NAME /var/mnt/$PVC_NAME
+  sudo mkdir /var/mnt/$PVC_NAME -p
+  sudo mount /dev/longhorn/$PVC_NAME /var/mnt/$PVC_NAME
   ls /var/mnt/$PVC_NAME
   echo "New volume path has mounted: /var/mnt/$PVC_NAME"
   export DB_CONFIG_FILE_PATH="/var/mnt/$PVC_NAME/data/automation-mongod.conf"
